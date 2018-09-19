@@ -1,0 +1,22 @@
+% your command definitions
+\usepackage{xparse}
+\usepackage{pgfkeys}
+
+% HelloWorld Args
+\pgfkeys{
+  /HelloWorld/.is family, /HelloWorld,
+  % Here are the options that a user can pass
+  default/.style = {
+    hello = Hello,
+    world = world,
+  },
+  % Here is the dictionary for positions.
+  hello/.estore in = \HelloWorldHello,
+  world/.estore in = \HelloWorldWorld
+}
+
+% usage: \HelloWorld[hello=Hi, world=John Doe]
+\NewDocumentCommand {\HelloWorld} { O{ } } {%
+  \pgfkeys{/HelloWorld, default, #1}%
+  \HelloWorldHello, \HelloWorldWorld!
+}
